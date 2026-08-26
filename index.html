@@ -262,6 +262,37 @@
   .hit b{color:var(--ink);font-size:16px}
   .hit .cond{font-family:inherit;color:var(--ink);font-weight:400}
   .hit .cond i{font-style:normal;border:1px solid var(--rule);padding:1px 7px;margin-right:4px}
+  /* --- 件数バッジ --- */
+  .grp label .n{font-style:normal;font-family:var(--mono);font-size:10.5px;
+    color:var(--sub);margin-left:4px;font-weight:400;vertical-align:.08em}
+  .grp label.zero{opacity:.32}
+  /* --- 単価の上限 --- */
+  #cap{border:1px solid var(--rule);background:var(--panel);color:var(--ink);
+    font-size:14px;padding:5px 8px;margin-left:10px;font-family:inherit}
+  .capnote{font-size:11px;color:var(--sub);margin-left:10px}
+  /* --- 一括操作 --- */
+  .bulk{margin-left:auto;display:flex;gap:8px}
+  .bulk button{border:1px solid var(--rule);background:var(--panel);color:var(--sub);
+    font-size:11.5px;font-weight:700;padding:5px 10px;cursor:pointer;font-family:inherit;
+    white-space:nowrap}
+  .bulk button:hover{border-color:var(--ink);color:var(--ink)}
+  .bulk button:disabled{opacity:.3;cursor:default}
+  /* --- 記録の一覧 --- */
+  .log[hidden]{display:none}
+  #logn{font-family:var(--mono);font-size:12px;color:var(--sub);font-weight:400}
+  #logbody{padding-bottom:16px}
+  .lrow{display:grid;grid-template-columns:1fr auto;gap:2px 14px;padding:9px 0;
+    border-top:1px solid var(--rule2);font-size:13px}
+  .lrow .ln{font-weight:700}
+  .lrow .lm{grid-column:1/-1;color:var(--sub);font-size:12.5px;line-height:1.8}
+  .lrow .lf{font-family:var(--mono);font-size:12px;color:var(--sub);white-space:nowrap}
+  .ltot{padding:10px 0;font-size:12px;font-family:var(--mono);color:var(--sub)}
+  /* --- 要確認の消し込み --- */
+  .vfy{border:1px solid var(--red);background:none;color:var(--red);font-size:11px;
+    font-weight:700;padding:2px 8px;cursor:pointer;font-family:inherit;margin-left:9px}
+  .vfy:hover{background:var(--red);color:#fff}
+  .vdate{font-family:var(--mono);font-size:11px;color:var(--sub);margin-left:9px}
+  .row.done .sig{border-color:var(--rule);color:var(--sub)}
   .fold{display:none}
   @media(max-width:719px){
     .fold{display:inline-block;border:1px solid var(--ink);background:var(--panel);
@@ -271,6 +302,8 @@
     body:not(.f-open) .bar .grp:not(.find){display:none}
     .grp.find{flex-wrap:wrap;gap:8px}
     #q{flex:1 1 100%;order:-1}
+    .bulk{margin-left:0;flex-basis:100%;margin-top:8px}
+    .capnote{display:none}
   }
   #empty{display:none;padding:44px 0;text-align:center;color:var(--sub);font-size:14px}
   #empty.on{display:block}
@@ -294,6 +327,8 @@
 <input type="radio" name="view" id="v-all" class="ctl" checked>
 <input type="radio" name="view" id="v-went" class="ctl">
 <input type="radio" name="view" id="v-yet" class="ctl">
+<input type="radio" name="view" id="v-check" class="ctl">
+<input type="radio" name="view" id="v-noted" class="ctl">
 <input type="checkbox" name="pf" id="pf-all" class="ctl" checked>
 <input type="checkbox" name="pf" id="pf-osaka" class="ctl">
 <input type="checkbox" name="pf" id="pf-kyoto" class="ctl">
@@ -341,7 +376,8 @@
 <div class="bar"><div class="bwrap">
   <div class="grp want"><b>重視する</b><label for="wt-all">こだわらない</label><label for="wt-cheap">安さ</label><label for="wt-hard">硬式</label><label for="wt-free">打ち放題</label><label for="wt-indoor">屋内・全天候</label><label for="wt-fast">速い球</label><label for="wt-video">映像マシン</label><label for="wt-combo">他の遊びも</label><label for="wt-station">駅から近い</label></div>
   <div class="grp"><b>表示</b>
-    <label for="v-all">すべて</label><label for="v-went">訪問済</label><label for="v-yet">未訪問</label></div>
+    <label for="v-all">すべて</label><label for="v-went">訪問済</label><label for="v-yet">未訪問</label><label for="v-noted">記録あり</label><label for="v-check">要確認</label></div>
+  <div class="grp"><b>単価</b><select id="cap" aria-label="1球あたりの単価の上限"><option value="">上限なし</option><option value="8">8円/球 以下</option><option value="10">10円/球 以下</option><option value="12">12円/球 以下</option><option value="15">15円/球 以下</option></select><span class="capnote">時間制・貸切の店は単価で比べられないため、上限を選ぶと外れます</span></div>
   <div class="grp"><b>並び順</b>
     <label for="s-pb">1球単価</label><label for="s-price">1ゲーム額</label><label for="s-rate">自分の評価</label></div>
   <div class="grp"><b>地域</b><label for="pf-all">すべて</label><label for="pf-osaka">大阪</label><label for="pf-kyoto">京都</label><label for="pf-hyogo">兵庫</label><label for="pf-nara">奈良</label><label for="pf-shiga">滋賀</label><label for="pf-wakayama">和歌山</label><label for="pf-aichi">愛知</label><label for="pf-gifu">岐阜</label><label for="pf-mie">三重</label><label for="pf-shizuoka">静岡</label><label for="pf-nagano">長野</label><label for="pf-yamanashi">山梨</label><label for="pf-fukui">福井</label><label for="pf-ishikawa">石川</label><label for="pf-toyama">富山</label><label for="pf-niigata">新潟</label></div>
@@ -356,7 +392,8 @@
 
 <noscript><p class="hit">絞り込み・検索・訪問記録には JavaScript が必要です。全229軒の一覧はそのままご覧いただけます。</p></noscript>
 <main>
-  <p class="hit"><span><b id="hit">229</b> 軒</span><span class="cond" id="cond"></span></p>
+  <div class="hit"><span><b id="hit">229</b> 軒</span><span class="cond" id="cond"></span><span class="bulk"><button id="mark-all" type="button">表示中をまとめて訪問済に</button><button id="unmark-all" type="button">表示中の記録を消す</button></span></div>
+  <details class="log" id="log"><summary>つけた記録をまとめて見る<span id="logn"></span></summary><div id="logbody"></div></details>
   <p class="note">
     上の「重視する」「地域」は<b>複数えらべます</b>（同じ枠内はどれかに当てはまる店、枠をまたぐと両方を満たす店）。検索欄は<b>スペース区切りのAND検索</b>で、ひらがな・半角カナ・全角英数もそのまま拾います。店名の下の<b>「地図で見る」</b>からGoogleマップが開きます。<br>
     行った店の「記録する」を押すと、評価・料金・所感を書き込めます。記録は<b>この端末に自動保存</b>されます（履歴削除や機種変更で消えるので、大事な記録は「記録を書き出す」でJSONを保存してください）。料金は<b>2026年8月時点</b>の公開情報にもとづく参考値で、「要確認」の店は改定・閉店の可能性があります。
@@ -3820,6 +3857,7 @@
   var q=document.getElementById('q'), empty=document.getElementById('empty');
   var hit=document.getElementById('hit'), cond=document.getElementById('cond');
   var reset=document.getElementById('reset'), near=document.getElementById('near');
+  var cap=document.getElementById('cap');
   var key=function(c){return c.querySelector('.name').textContent;};
 
   /* ---------- 表記ゆれの吸収 ----------
@@ -3838,6 +3876,7 @@
     nagano:'長野',yamanashi:'山梨',fukui:'福井',ishikawa:'石川',toyama:'富山',niigata:'新潟'};
   var WTNAME={cheap:'安さ',hard:'硬式',free:'打ち放題',indoor:'屋内・全天候',
     fast:'速い球',video:'映像マシン',combo:'他の遊びも',station:'駅から近い'};
+  var VIEWNAME={'v-went':'訪問済のみ','v-yet':'未訪問のみ','v-noted':'記録ありのみ','v-check':'要確認のみ'};
 
   rows.forEach(function(c){
     var extra=[c.querySelector('.name').textContent];
@@ -3849,6 +3888,11 @@
        「書き込みあり」の判定はこの初期値との差分で見る。 */
     var ns=c.querySelectorAll('.fields input');
     c._d0=[ns[0].value,ns[1].value];
+    /* 1球あたりの単価。時間制・貸切の店は数値がないので null。 */
+    var u=c.querySelector('.unit:not(.off)');
+    c._u=u?parseFloat(u.textContent):null;
+    /* 料金改定・閉店の可能性がある店 */
+    c._check=/要確認/.test(c.dataset.q);
   });
 
   function picked(name){
@@ -3857,24 +3901,40 @@
       .filter(function(v){return v!=='all';});
   }
 
-  /* ---------- 絞り込み（検索・地域・重視・表示を一本化） ---------- */
+  /* ---------- 絞り込み ----------
+     skip に枠の名前を渡すと、その条件だけ外して判定する。
+     絞り込みチップの件数バッジは自分の枠を外して数えるため。 */
+  function state(){
+    return {terms:norm(q.value).split(' ').filter(Boolean),
+            pfs:picked('pf'), wts:picked('wt'),
+            view:(document.querySelector('input[name="view"]:checked')||{id:'v-all'}).id,
+            cap:cap.value?parseFloat(cap.value):null};
+  }
+  function match(c,s,skip){
+    var i;
+    if(skip!=='q'){
+      for(i=0;i<s.terms.length;i++){ if(c._q.indexOf(s.terms[i])<0) return false; }
+    }
+    if(skip!=='pf'&&s.pfs.length&&s.pfs.indexOf(c._pf)<0) return false;
+    if(skip!=='wt'&&s.wts.length){
+      var any=false;
+      for(i=0;i<s.wts.length;i++){ if(c._fl.indexOf(s.wts[i])>=0){any=true;break;} }
+      if(!any) return false;
+    }
+    if(skip!=='cap'&&s.cap!==null&&!(c._u!==null&&c._u<=s.cap)) return false;
+    if(skip!=='view'&&s.view!=='v-all'){
+      if(s.view==='v-went'&&!c.querySelector('.went').checked) return false;
+      if(s.view==='v-yet'&&c.querySelector('.went').checked) return false;
+      if(s.view==='v-noted'&&!dirty(c)) return false;
+      if(s.view==='v-check'&&!(c._check&&!verified[key(c)])) return false;
+    }
+    return true;
+  }
+
   function apply(){
-    var terms=norm(q.value).split(' ').filter(Boolean);
-    var pfs=picked('pf'), wts=picked('wt');
-    var view=(document.querySelector('input[name="view"]:checked')||{id:'v-all'}).id;
-    var n=0;
+    var s=state(), n=0;
     rows.forEach(function(c){
-      var ok=true, i;
-      for(i=0;i<terms.length;i++){ if(c._q.indexOf(terms[i])<0){ ok=false; break; } }
-      if(ok&&pfs.length) ok=pfs.indexOf(c._pf)>=0;
-      if(ok&&wts.length){
-        ok=false;
-        for(i=0;i<wts.length;i++){ if(c._fl.indexOf(wts[i])>=0){ ok=true; break; } }
-      }
-      if(ok&&view!=='v-all'){
-        var went=c.querySelector('.went').checked;
-        ok=(view==='v-went')?went:!went;
-      }
+      var ok=match(c,s);
       c.classList.toggle('hide',!ok);
       if(ok)n++;
     });
@@ -3882,27 +3942,52 @@
     hit.textContent=n;
 
     var chips=[];
-    pfs.forEach(function(k){chips.push(PFNAME[k]||k);});
-    wts.forEach(function(k){chips.push(WTNAME[k]||k);});
-    if(view==='v-went')chips.push('訪問済のみ');
-    if(view==='v-yet')chips.push('未訪問のみ');
-    if(terms.length)chips.push('「'+q.value.trim()+'」');
+    s.pfs.forEach(function(k){chips.push(PFNAME[k]||k);});
+    s.wts.forEach(function(k){chips.push(WTNAME[k]||k);});
+    if(s.cap!==null)chips.push(s.cap+'円/球 以下');
+    if(VIEWNAME[s.view])chips.push(VIEWNAME[s.view]);
+    if(s.terms.length)chips.push('「'+q.value.trim()+'」');
     if(document.body.classList.contains('geo'))chips.push('現在地から近い順');
     cond.innerHTML=chips.map(function(t){
       return '<i>'+t.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</i>';
     }).join('');
     reset.hidden=chips.length===0;
+    var vis=rows.filter(function(c){return !c.classList.contains('hide');});
+    document.getElementById('mark-all').disabled=
+      vis.filter(function(c){return !c.querySelector('.went').checked;}).length===0;
+    document.getElementById('unmark-all').disabled=vis.filter(dirty).length===0;
+    badges(s);
+    renderLog();
+  }
+
+  /* ---------- チップの件数バッジ ---------- */
+  function setBadge(forId,count){
+    var l=document.querySelector('.bar label[for="'+forId+'"]');
+    if(!l)return;
+    var b=l.querySelector('.n');
+    if(!b){b=document.createElement('i'); b.className='n'; l.appendChild(b);}
+    b.textContent=count;
+    l.classList.toggle('zero',count===0);
+  }
+  function badges(s){
+    var basePf=rows.filter(function(c){return match(c,s,'pf');});
+    var baseWt=rows.filter(function(c){return match(c,s,'wt');});
+    var baseVw=rows.filter(function(c){return match(c,s,'view');});
+    Object.keys(PFNAME).forEach(function(k){
+      setBadge('pf-'+k,basePf.filter(function(c){return c._pf===k;}).length);
+    });
+    Object.keys(WTNAME).forEach(function(k){
+      setBadge('wt-'+k,baseWt.filter(function(c){return c._fl.indexOf(k)>=0;}).length);
+    });
+    setBadge('v-went',baseVw.filter(function(c){return c.querySelector('.went').checked;}).length);
+    setBadge('v-yet', baseVw.filter(function(c){return !c.querySelector('.went').checked;}).length);
+    setBadge('v-noted',baseVw.filter(dirty).length);
+    setBadge('v-check',baseVw.filter(function(c){return c._check&&!verified[key(c)];}).length);
   }
 
   /* 「すべて」「こだわらない」はグループの解除ボタンとして働かせる */
   function syncAll(name){
     var all=document.getElementById(name+'-all');
-    var any=picked(name).length>0;
-    if(all.checked&&any){
-      [].forEach.call(document.querySelectorAll('input[name="'+name+'"]'),function(i){
-        if(i!==all)i.checked=false;
-      });
-    }
     all.checked=picked(name).length===0;
   }
   document.addEventListener('change',function(e){
@@ -3920,9 +4005,13 @@
     stat(); save(); apply();
   });
   q.addEventListener('input',apply);
+  cap.addEventListener('change',apply);
 
   /* ---------- 訪問記録：この端末に自動保存 ---------- */
-  var KEY='batting-index-log-v1';
+  var KEY='batting-index-log-v1', VKEY='batting-index-verified-v1';
+  var verified={};
+  try{verified=JSON.parse(localStorage.getItem(VKEY))||{};}catch(e){verified={};}
+
   function fields(c){return c.querySelectorAll('.fields input');}
   function read(c){
     var st=c.querySelector('.stars input:checked'), ns=fields(c);
@@ -3945,6 +4034,9 @@
     c.querySelector('textarea').value=d.c||'';
     c.classList.toggle('noted',dirty(c));
   }
+  function clear(c){
+    write(c,{w:0,r:0,p:c._d0[0],b:c._d0[1],c:''});
+  }
   function save(){
     var o={};
     rows.forEach(function(c){
@@ -3961,7 +4053,7 @@
     rows.forEach(function(c){var d=o[key(c)]; if(d)write(c,d);});
   }
   document.addEventListener('input',function(e){
-    if(e.target.closest&&e.target.closest('.panel'))save();
+    if(e.target.closest&&e.target.closest('.panel')){save(); renderLog();}
   });
 
   /* 星は押し直しで取り消せる */
@@ -3990,6 +4082,86 @@
     document.getElementById('s-went').innerHTML=n+'<i>軒</i>';
   }
 
+  /* ---------- まとめて訪問済にする／記録を消す ---------- */
+  function shown(){return rows.filter(function(c){return !c.classList.contains('hide');});}
+  document.getElementById('mark-all').onclick=function(){
+    var t=shown().filter(function(c){return !c.querySelector('.went').checked;});
+    if(!t.length){alert('表示中の店はすべて訪問済です');return;}
+    if(!confirm('表示中の'+t.length+'軒を訪問済にします。よろしいですか？'))return;
+    t.forEach(function(c){c.querySelector('.went').checked=true;});
+    stat(); save(); apply();
+  };
+  document.getElementById('unmark-all').onclick=function(){
+    var t=shown().filter(dirty);
+    if(!t.length){alert('表示中に消せる記録はありません');return;}
+    if(!confirm('表示中の'+t.length+'軒の記録（評価・料金・所感）を消します。元に戻せません。よろしいですか？'))return;
+    t.forEach(clear);
+    stat(); save(); apply();
+  };
+
+  /* ---------- つけた記録の一覧 ---------- */
+  var log=document.getElementById('log'), logbody=document.getElementById('logbody'),
+      logn=document.getElementById('logn');
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function renderLog(){
+    var t=rows.filter(dirty);
+    log.hidden=t.length===0;
+    if(!t.length)return;
+    logn.textContent='　'+t.length+'軒';
+    var sum=0,cnt=0,rt=0,rn=0;
+    var html=t.map(function(c){
+      var d=read(c);
+      var money=(+d.p||0), balls=(+d.b||0);
+      if(money){sum+=money;cnt++;}
+      if(d.r){rt+=d.r;rn++;}
+      var f=[];
+      if(money)f.push(money+'円');
+      if(balls)f.push(balls+'球');
+      if(money&&balls)f.push((money/balls).toFixed(1)+'円/球');
+      return '<div class="lrow"><span class="ln">'+esc(key(c))+
+        (d.r?' <span style="letter-spacing:-1px">'+new Array(d.r+1).join('★')+'</span>':'')+
+        '</span><span class="lf">'+f.join(' ・ ')+'</span>'+
+        (d.c?'<span class="lm">'+esc(d.c)+'</span>':'')+'</div>';
+    }).join('');
+    var tot=[];
+    if(cnt)tot.push('記録した料金の合計 '+sum.toLocaleString()+'円（'+cnt+'軒）');
+    if(rn)tot.push('平均評価 '+(rt/rn).toFixed(1)+'★');
+    logbody.innerHTML=html+(tot.length?'<p class="ltot">'+tot.join('　／　')+'</p>':'');
+  }
+
+  /* ---------- 「要確認」の消し込み ---------- */
+  function saveVerified(){
+    try{localStorage.setItem(VKEY,JSON.stringify(verified));}catch(e){}
+  }
+  function today(){
+    var d=new Date(), p=function(x){return (x<10?'0':'')+x;};
+    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+  }
+  function paintVerified(c){
+    var n=key(c), box=c.querySelector('.vbox');
+    if(verified[n]){
+      box.innerHTML='<span class="vdate">'+verified[n]+' 確認済</span>'+
+                    '<button class="vfy" data-undo="1" type="button">取り消す</button>';
+      c.classList.add('done');
+    }else{
+      box.innerHTML='<button class="vfy" type="button">情報を確認した</button>';
+      c.classList.remove('done');
+    }
+  }
+  rows.filter(function(c){return c._check;}).forEach(function(c){
+    var box=document.createElement('span');
+    box.className='vbox';
+    c.querySelector('.city').appendChild(box);
+    paintVerified(c);
+  });
+  document.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('.vfy'):null;
+    if(!b)return;
+    var c=b.closest('.row'), n=key(c);
+    if(b.dataset.undo)delete verified[n]; else verified[n]=today();
+    saveVerified(); paintVerified(c); apply();
+  });
+
   /* ---------- 現在地から近い順 ---------- */
   function km(a,b,c,d){
     var R=6371,p=Math.PI/180,x=(c-a)*p,y=(d-b)*p;
@@ -4000,6 +4172,7 @@
     rows.forEach(function(c){c.style.removeProperty('--o3');});
     document.body.classList.remove('geo');
     near.classList.remove('on');
+    near.textContent='現在地から近い順';
   }
   near.onclick=function(){
     if(document.body.classList.contains('geo')){clearGeo(); apply(); return;}
@@ -4024,7 +4197,7 @@
   };
 
   reset.onclick=function(){
-    q.value='';
+    q.value=''; cap.value='';
     ['pf','wt'].forEach(function(nm){
       [].forEach.call(document.querySelectorAll('input[name="'+nm+'"]'),function(i){
         i.checked=/-all$/.test(i.id);
@@ -4032,7 +4205,6 @@
     });
     document.getElementById('v-all').checked=true;
     clearGeo();
-    near.textContent='現在地から近い順';
     apply();
   };
 
@@ -4051,7 +4223,8 @@
       return {n:key(c),rating:d.r,price:d.p,balls:d.b,comment:d.c,visited:!!d.w};
     });
     if(!out.length){alert('書き出せる記録がまだありません');return;}
-    var url=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));
+    var payload={savedAt:today(),records:out,verified:verified};
+    var url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
     var a=document.createElement('a');
     a.href=url; a.download='batting-log.json'; a.click();
     setTimeout(function(){URL.revokeObjectURL(url);},1000);
@@ -4063,17 +4236,23 @@
     r.onload=function(){
       try{
         var data=JSON.parse(r.result);
-        if(!Array.isArray(data))throw new Error('形式が違います');
+        /* 旧形式（配列そのまま）も読めるようにしておく */
+        var list=Array.isArray(data)?data:data.records;
+        if(!Array.isArray(list))throw new Error('形式が違います');
         var n=0;
-        data.forEach(function(s){
+        list.forEach(function(s){
           var c=rows.filter(function(x){return key(x)===s.n;})[0];
           if(!c)return;
           write(c,{w:(s.visited===false?0:1),r:s.rating||0,
                    p:s.price||'',b:s.balls||'',c:s.comment||''});
           n++;
         });
+        if(data&&data.verified){
+          verified=data.verified; saveVerified();
+          rows.filter(function(c){return c._check;}).forEach(paintVerified);
+        }
         stat(); save(); apply();
-        alert(n+'件の記録を読み込みました'+(n<data.length?'（'+(data.length-n)+'件は該当する店が見つかりませんでした）':''));
+        alert(n+'件の記録を読み込みました'+(n<list.length?'（'+(list.length-n)+'件は該当する店が見つかりませんでした）':''));
       }catch(err){alert('ファイルを読み込めませんでした');}
     };
     r.readAsText(f); ev.target.value='';
