@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>打席台帳｜関西・中部 バッティングセンター一覧</title>
+<title>打席台帳｜関西・中部・北陸・信越 バッティングセンター229軒</title>
+<meta name="description" content="関西・中部・北陸・信越16府県229軒のバッティングセンターを、1球あたりの単価・球速・設備つきで検索できる台帳。現在地から近い順、条件の掛け合わせ、訪問記録に対応。">
+<meta name="theme-color" content="#22262b">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:title" content="打席台帳｜バッティングセンター229軒">
+<meta property="og:description" content="16府県229軒を単価・球速・設備で検索できる台帳。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%2322262b%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2224%22%20font-size%3D%2222%22%20font-family%3D%22serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3E打%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
   :root{
     --paper:#fbfbf9; --panel:#fff; --ink:#15171a; --sub:#5c6166;
@@ -129,7 +136,7 @@
 
   .act{display:flex;align-items:center;gap:14px;margin-top:11px}
   .go{font-size:13px;font-weight:700;cursor:pointer;color:var(--sub);
-    border:1px solid var(--rule);padding:5px 13px;user-select:none}
+    border:1px solid var(--rule);padding:5px 13px;user-select:none;white-space:nowrap}
   .go:hover{border-color:var(--ink);color:var(--ink)}
   .go .b{display:none}
   .stars{display:inline-flex;direction:rtl}
@@ -151,7 +158,7 @@
   .row:has(.went:checked) .go{background:var(--ink);border-color:var(--ink);color:#fff}
   .row:has(.went:checked) .go .a{display:none}
   .row:has(.went:checked) .go .b{display:inline}
-  .row:has(.went:checked) .panel{display:flex}
+  .row:has(.went:checked) .panel,.row.noted .panel{display:flex}
 
   #s-pb:checked ~ main .row{order:var(--o1)}
   #s-price:checked ~ main .row{order:var(--o2)}
@@ -161,31 +168,9 @@
 #s-rate:checked ~ main .row:has(.sv3:checked){order:3}
 #s-rate:checked ~ main .row:has(.sv2:checked){order:4}
 #s-rate:checked ~ main .row:has(.sv1:checked){order:5}
-  #v-went:checked ~ main .row:not(:has(.went:checked)){display:none}
-  #v-yet:checked ~ main .row:has(.went:checked){display:none}
-#pf-osaka:checked ~ main .row:not(.pf-osaka){display:none}
-#pf-kyoto:checked ~ main .row:not(.pf-kyoto){display:none}
-#pf-hyogo:checked ~ main .row:not(.pf-hyogo){display:none}
-#pf-nara:checked ~ main .row:not(.pf-nara){display:none}
-#pf-shiga:checked ~ main .row:not(.pf-shiga){display:none}
-#pf-wakayama:checked ~ main .row:not(.pf-wakayama){display:none}
-#pf-aichi:checked ~ main .row:not(.pf-aichi){display:none}
-#pf-gifu:checked ~ main .row:not(.pf-gifu){display:none}
-#pf-mie:checked ~ main .row:not(.pf-mie){display:none}
-#pf-shizuoka:checked ~ main .row:not(.pf-shizuoka){display:none}
-#pf-nagano:checked ~ main .row:not(.pf-nagano){display:none}
-#pf-yamanashi:checked ~ main .row:not(.pf-yamanashi){display:none}
-#pf-fukui:checked ~ main .row:not(.pf-fukui){display:none}
-#pf-ishikawa:checked ~ main .row:not(.pf-ishikawa){display:none}
-#pf-toyama:checked ~ main .row:not(.pf-toyama){display:none}
-#pf-niigata:checked ~ main .row:not(.pf-niigata){display:none}
-#wt-cheap:checked ~ main .row:not(.fl-cheap){display:none}
-#wt-hard:checked ~ main .row:not(.fl-hard){display:none}
-#wt-free:checked ~ main .row:not(.fl-free){display:none}
-#wt-indoor:checked ~ main .row:not(.fl-indoor){display:none}
-#wt-fast:checked ~ main .row:not(.fl-fast){display:none}
-#wt-video:checked ~ main .row:not(.fl-video){display:none}
-#wt-combo:checked ~ main .row:not(.fl-combo){display:none}
+  /* 表示の絞り込みはJSへ移動 */
+/* 県の絞り込みはJSへ移動（複数選択に対応するため） */
+/* 重視の絞り込みはJSへ移動 */
 #wt-cheap:checked ~ main .hint-cheap{display:block}
 #wt-hard:checked ~ main .hint-hard{display:block}
 #wt-free:checked ~ main .hint-free{display:block}
@@ -258,7 +243,7 @@
   .seat{font-size:11.5px;color:var(--sub);font-family:var(--mono);white-space:nowrap}
   .grp.find{gap:8px;padding-top:10px;padding-bottom:10px}
   #q{flex:1;min-width:180px;border:1px solid var(--rule);background:var(--panel);
-    padding:9px 11px;font-size:14.5px;color:var(--ink)}
+    padding:11px 12px;font-size:16px;color:var(--ink)}
   #q:focus{outline:none;border-color:var(--ink)}
   .grp.find button{border:1px solid var(--ink);background:var(--panel);color:var(--ink);
     font-size:13px;font-weight:700;padding:9px 13px;cursor:pointer;white-space:nowrap}
@@ -267,7 +252,26 @@
   .dist{display:none;margin-left:9px;font-family:var(--mono);font-variant-numeric:tabular-nums;
     font-size:12.5px;font-weight:700;color:var(--red)}
   body.geo .dist{display:inline}
+  /* 並び順(idセレクタ)より優先させる */
+  body.geo main .row{order:var(--o3) !important}
   .hide{display:none !important}
+  /* --- 追加：件数表示・スマホ折りたたみ・現在地順 --- */
+  .hit{font-size:12px;font-weight:700;color:var(--sub);padding:11px 0;
+    border-bottom:1px solid var(--rule);font-family:var(--mono);
+    display:flex;align-items:baseline;gap:0 10px;flex-wrap:wrap}
+  .hit b{color:var(--ink);font-size:16px}
+  .hit .cond{font-family:inherit;color:var(--ink);font-weight:400}
+  .hit .cond i{font-style:normal;border:1px solid var(--rule);padding:1px 7px;margin-right:4px}
+  .fold{display:none}
+  @media(max-width:719px){
+    .fold{display:inline-block;border:1px solid var(--ink);background:var(--panel);
+      color:var(--ink);font-size:13px;font-weight:700;padding:9px 13px;cursor:pointer;
+      white-space:nowrap}
+    .fold.on{background:var(--ink);color:#fff}
+    body:not(.f-open) .bar .grp:not(.find){display:none}
+    .grp.find{flex-wrap:wrap;gap:8px}
+    #q{flex:1 1 100%;order:-1}
+  }
   #empty{display:none;padding:44px 0;text-align:center;color:var(--sub);font-size:14px}
   #empty.on{display:block}
   footer{border-top:1px solid var(--ink);max-width:960px;margin:0 auto;padding:18px 16px;
@@ -290,31 +294,32 @@
 <input type="radio" name="view" id="v-all" class="ctl" checked>
 <input type="radio" name="view" id="v-went" class="ctl">
 <input type="radio" name="view" id="v-yet" class="ctl">
-<input type="radio" name="pf" id="pf-all" class="ctl" checked>
-<input type="radio" name="pf" id="pf-osaka" class="ctl">
-<input type="radio" name="pf" id="pf-kyoto" class="ctl">
-<input type="radio" name="pf" id="pf-hyogo" class="ctl">
-<input type="radio" name="pf" id="pf-nara" class="ctl">
-<input type="radio" name="pf" id="pf-shiga" class="ctl">
-<input type="radio" name="pf" id="pf-wakayama" class="ctl">
-<input type="radio" name="pf" id="pf-aichi" class="ctl">
-<input type="radio" name="pf" id="pf-gifu" class="ctl">
-<input type="radio" name="pf" id="pf-mie" class="ctl">
-<input type="radio" name="pf" id="pf-shizuoka" class="ctl">
-<input type="radio" name="pf" id="pf-nagano" class="ctl">
-<input type="radio" name="pf" id="pf-yamanashi" class="ctl">
-<input type="radio" name="pf" id="pf-fukui" class="ctl">
-<input type="radio" name="pf" id="pf-ishikawa" class="ctl">
-<input type="radio" name="pf" id="pf-toyama" class="ctl">
-<input type="radio" name="pf" id="pf-niigata" class="ctl">
-<input type="radio" name="wt" id="wt-all" class="ctl" checked>
-<input type="radio" name="wt" id="wt-cheap" class="ctl">
-<input type="radio" name="wt" id="wt-hard" class="ctl">
-<input type="radio" name="wt" id="wt-free" class="ctl">
-<input type="radio" name="wt" id="wt-indoor" class="ctl">
-<input type="radio" name="wt" id="wt-fast" class="ctl">
-<input type="radio" name="wt" id="wt-video" class="ctl">
-<input type="radio" name="wt" id="wt-combo" class="ctl">
+<input type="checkbox" name="pf" id="pf-all" class="ctl" checked>
+<input type="checkbox" name="pf" id="pf-osaka" class="ctl">
+<input type="checkbox" name="pf" id="pf-kyoto" class="ctl">
+<input type="checkbox" name="pf" id="pf-hyogo" class="ctl">
+<input type="checkbox" name="pf" id="pf-nara" class="ctl">
+<input type="checkbox" name="pf" id="pf-shiga" class="ctl">
+<input type="checkbox" name="pf" id="pf-wakayama" class="ctl">
+<input type="checkbox" name="pf" id="pf-aichi" class="ctl">
+<input type="checkbox" name="pf" id="pf-gifu" class="ctl">
+<input type="checkbox" name="pf" id="pf-mie" class="ctl">
+<input type="checkbox" name="pf" id="pf-shizuoka" class="ctl">
+<input type="checkbox" name="pf" id="pf-nagano" class="ctl">
+<input type="checkbox" name="pf" id="pf-yamanashi" class="ctl">
+<input type="checkbox" name="pf" id="pf-fukui" class="ctl">
+<input type="checkbox" name="pf" id="pf-ishikawa" class="ctl">
+<input type="checkbox" name="pf" id="pf-toyama" class="ctl">
+<input type="checkbox" name="pf" id="pf-niigata" class="ctl">
+<input type="checkbox" name="wt" id="wt-all" class="ctl" checked>
+<input type="checkbox" name="wt" id="wt-cheap" class="ctl">
+<input type="checkbox" name="wt" id="wt-hard" class="ctl">
+<input type="checkbox" name="wt" id="wt-free" class="ctl">
+<input type="checkbox" name="wt" id="wt-indoor" class="ctl">
+<input type="checkbox" name="wt" id="wt-fast" class="ctl">
+<input type="checkbox" name="wt" id="wt-video" class="ctl">
+<input type="checkbox" name="wt" id="wt-combo" class="ctl">
+<input type="checkbox" name="wt" id="wt-station" class="ctl">
 
 <header>
   <div class="wrap">
@@ -334,23 +339,27 @@
 </header>
 
 <div class="bar"><div class="bwrap">
-  <div class="grp want"><b>重視する</b><label for="wt-all">こだわらない</label><label for="wt-cheap">安さ</label><label for="wt-hard">硬式</label><label for="wt-free">打ち放題</label><label for="wt-indoor">屋内・全天候</label><label for="wt-fast">速い球</label><label for="wt-video">映像マシン</label><label for="wt-combo">他の遊びも</label></div>
+  <div class="grp want"><b>重視する</b><label for="wt-all">こだわらない</label><label for="wt-cheap">安さ</label><label for="wt-hard">硬式</label><label for="wt-free">打ち放題</label><label for="wt-indoor">屋内・全天候</label><label for="wt-fast">速い球</label><label for="wt-video">映像マシン</label><label for="wt-combo">他の遊びも</label><label for="wt-station">駅から近い</label></div>
   <div class="grp"><b>表示</b>
     <label for="v-all">すべて</label><label for="v-went">訪問済</label><label for="v-yet">未訪問</label></div>
   <div class="grp"><b>並び順</b>
     <label for="s-pb">1球単価</label><label for="s-price">1ゲーム額</label><label for="s-rate">自分の評価</label></div>
-  <div class="grp"><b>地域</b><label for="pf-all">全</label><label for="pf-osaka">大阪</label><label for="pf-kyoto">京都</label><label for="pf-hyogo">兵庫</label><label for="pf-nara">奈良</label><label for="pf-shiga">滋賀</label><label for="pf-wakayama">和歌山</label><label for="pf-aichi">愛知</label><label for="pf-gifu">岐阜</label><label for="pf-mie">三重</label><label for="pf-shizuoka">静岡</label><label for="pf-nagano">長野</label><label for="pf-yamanashi">山梨</label><label for="pf-fukui">福井</label><label for="pf-ishikawa">石川</label><label for="pf-toyama">富山</label><label for="pf-niigata">新潟</label></div>
+  <div class="grp"><b>地域</b><label for="pf-all">すべて</label><label for="pf-osaka">大阪</label><label for="pf-kyoto">京都</label><label for="pf-hyogo">兵庫</label><label for="pf-nara">奈良</label><label for="pf-shiga">滋賀</label><label for="pf-wakayama">和歌山</label><label for="pf-aichi">愛知</label><label for="pf-gifu">岐阜</label><label for="pf-mie">三重</label><label for="pf-shizuoka">静岡</label><label for="pf-nagano">長野</label><label for="pf-yamanashi">山梨</label><label for="pf-fukui">福井</label><label for="pf-ishikawa">石川</label><label for="pf-toyama">富山</label><label for="pf-niigata">新潟</label></div>
   <div class="grp find">
-    <input type="search" id="q" placeholder="店名・市区町村・特徴で検索（例：硬式、豊橋、打ち放題）" autocomplete="off">
+    <label for="q" class="ctl">キーワード検索</label>
+    <input type="search" id="q" placeholder="スペース区切りで絞り込み（例：愛知 硬式）" autocomplete="off">
+    <button id="fold" class="fold" type="button" aria-expanded="false">絞り込み</button>
     <button id="near" type="button">現在地から近い順</button>
-    <button id="reset" type="button" hidden>解除</button>
+    <button id="reset" type="button" hidden>条件をすべて解除</button>
   </div>
 </div></div>
 
+<noscript><p class="hit">絞り込み・検索・訪問記録には JavaScript が必要です。全229軒の一覧はそのままご覧いただけます。</p></noscript>
 <main>
+  <p class="hit"><span><b id="hit">229</b> 軒</span><span class="cond" id="cond"></span></p>
   <p class="note">
-    上の「重視する」を選ぶと、条件に合う店だけに絞り込まれます。店名の下の<b>「地図で見る」</b>からGoogleマップが開きます。<br>
-    行った店の「記録する」を押すと、評価・料金・所感を書き込めます。料金は<b>2026年8月時点</b>の公開情報にもとづく参考値で、「要確認」の店は改定・閉店の可能性があります。
+    上の「重視する」「地域」は<b>複数えらべます</b>（同じ枠内はどれかに当てはまる店、枠をまたぐと両方を満たす店）。検索欄は<b>スペース区切りのAND検索</b>で、ひらがな・半角カナ・全角英数もそのまま拾います。店名の下の<b>「地図で見る」</b>からGoogleマップが開きます。<br>
+    行った店の「記録する」を押すと、評価・料金・所感を書き込めます。記録は<b>この端末に自動保存</b>されます（履歴削除や機種変更で消えるので、大事な記録は「記録を書き出す」でJSONを保存してください）。料金は<b>2026年8月時点</b>の公開情報にもとづく参考値で、「要確認」の店は改定・閉店の可能性があります。
   </p>
 
   <details class="pick" open><summary>目的から選ぶ・8選</summary><ol><li><b>数を打ちたい</b><span class="pn">塩田バッティングセンター</span><span class="pp">長野</span><p>200円で35球。1球5.7円で、上位打者には賞金も出る</p></li><li><b>ワンコインで済ませる</b><span class="pn">えぎらバッティングセンター</span><span class="pp">岐阜</span><p>100円18球＝1球5.6円。全229軒で最安</p></li><li><b>速い球に挑む</b><span class="pn">新瑞バッティングセンター</span><span class="pp">愛知</span><p>200円18球で最速170km/h。硬式打席もある</p></li><li><b>硬式をがっつり</b><span class="pn">GIFU SPORTS FOREST</span><span class="pp">岐阜</span><p>硬式球専門の室内施設。30分1500円で振り込める</p></li><li><b>打ち放題で振り込む</b><span class="pn">アレアスポーツ</span><span class="pp">石川</span><p>20分打ち放題800円。時間貸しでは破格</p></li><li><b>打ったあと温まる</b><span class="pn">マグスミノエ</span><span class="pp">大阪</span><p>最速150kmを打ってそのまま温泉へ</p></li><li><b>聖地を踏む</b><span class="pn">空港バッティング</span><span class="pp">愛知</span><p>イチローが通った名門。200円22球、HRまで50m</p></li><li><b>景色で選ぶ</b><span class="pn">河口湖バッティングセンター</span><span class="pp">山梨</span><p>打席から富士山が正面に見える。200円17球</p></li></ol></details>
@@ -3808,80 +3817,269 @@
 <script>
 (function(){
   var rows=[].slice.call(document.querySelectorAll('.row'));
+  var q=document.getElementById('q'), empty=document.getElementById('empty');
+  var hit=document.getElementById('hit'), cond=document.getElementById('cond');
+  var reset=document.getElementById('reset'), near=document.getElementById('near');
   var key=function(c){return c.querySelector('.name').textContent;};
+
+  /* ---------- 表記ゆれの吸収 ----------
+     NFKCで全角英数→半角・半角カナ→全角カナ、ひらがな→カタカナ、
+     各種ダッシュ→長音符に寄せてから比較する。 */
+  function norm(s){
+    s=(s||'').normalize('NFKC').toLowerCase();
+    s=s.replace(/[ぁ-ゖ]/g,function(c){
+      return String.fromCharCode(c.charCodeAt(0)+0x60);
+    });
+    return s.replace(/[‐-―−－ー]/g,'ー')
+            .replace(/\s+/g,' ').trim();
+  }
+  var PFNAME={osaka:'大阪',kyoto:'京都',hyogo:'兵庫',nara:'奈良',shiga:'滋賀',
+    wakayama:'和歌山',aichi:'愛知',gifu:'岐阜',mie:'三重',shizuoka:'静岡',
+    nagano:'長野',yamanashi:'山梨',fukui:'福井',ishikawa:'石川',toyama:'富山',niigata:'新潟'};
+  var WTNAME={cheap:'安さ',hard:'硬式',free:'打ち放題',indoor:'屋内・全天候',
+    fast:'速い球',video:'映像マシン',combo:'他の遊びも',station:'駅から近い'};
+
+  rows.forEach(function(c){
+    var extra=[c.querySelector('.name').textContent];
+    var yen=c.querySelector('.yen'); if(yen) extra.push(yen.textContent);
+    c._q=norm(c.dataset.q+' '+extra.join(' '));
+    var m=c.className.match(/pf-[a-z]+/); c._pf=m?m[0].slice(3):'';
+    c._fl=(c.className.match(/fl-[a-z]+/g)||[]).map(function(x){return x.slice(3);});
+    /* 料金・球数欄には掲載値があらかじめ入っている。
+       「書き込みあり」の判定はこの初期値との差分で見る。 */
+    var ns=c.querySelectorAll('.fields input');
+    c._d0=[ns[0].value,ns[1].value];
+  });
+
+  function picked(name){
+    return [].slice.call(document.querySelectorAll('input[name="'+name+'"]:checked'))
+      .map(function(i){return i.id.slice(3);})
+      .filter(function(v){return v!=='all';});
+  }
+
+  /* ---------- 絞り込み（検索・地域・重視・表示を一本化） ---------- */
+  function apply(){
+    var terms=norm(q.value).split(' ').filter(Boolean);
+    var pfs=picked('pf'), wts=picked('wt');
+    var view=(document.querySelector('input[name="view"]:checked')||{id:'v-all'}).id;
+    var n=0;
+    rows.forEach(function(c){
+      var ok=true, i;
+      for(i=0;i<terms.length;i++){ if(c._q.indexOf(terms[i])<0){ ok=false; break; } }
+      if(ok&&pfs.length) ok=pfs.indexOf(c._pf)>=0;
+      if(ok&&wts.length){
+        ok=false;
+        for(i=0;i<wts.length;i++){ if(c._fl.indexOf(wts[i])>=0){ ok=true; break; } }
+      }
+      if(ok&&view!=='v-all'){
+        var went=c.querySelector('.went').checked;
+        ok=(view==='v-went')?went:!went;
+      }
+      c.classList.toggle('hide',!ok);
+      if(ok)n++;
+    });
+    empty.classList.toggle('on',n===0);
+    hit.textContent=n;
+
+    var chips=[];
+    pfs.forEach(function(k){chips.push(PFNAME[k]||k);});
+    wts.forEach(function(k){chips.push(WTNAME[k]||k);});
+    if(view==='v-went')chips.push('訪問済のみ');
+    if(view==='v-yet')chips.push('未訪問のみ');
+    if(terms.length)chips.push('「'+q.value.trim()+'」');
+    if(document.body.classList.contains('geo'))chips.push('現在地から近い順');
+    cond.innerHTML=chips.map(function(t){
+      return '<i>'+t.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</i>';
+    }).join('');
+    reset.hidden=chips.length===0;
+  }
+
+  /* 「すべて」「こだわらない」はグループの解除ボタンとして働かせる */
+  function syncAll(name){
+    var all=document.getElementById(name+'-all');
+    var any=picked(name).length>0;
+    if(all.checked&&any){
+      [].forEach.call(document.querySelectorAll('input[name="'+name+'"]'),function(i){
+        if(i!==all)i.checked=false;
+      });
+    }
+    all.checked=picked(name).length===0;
+  }
+  document.addEventListener('change',function(e){
+    if(e.target.name==='pf'||e.target.name==='wt'){
+      if(/-all$/.test(e.target.id)){
+        [].forEach.call(document.querySelectorAll('input[name="'+e.target.name+'"]'),function(i){
+          i.checked=(i===e.target);
+        });
+      }else{
+        document.getElementById(e.target.name+'-all').checked=false;
+      }
+      syncAll(e.target.name);
+    }
+    if(e.target.name==='sort'&&document.body.classList.contains('geo'))clearGeo();
+    stat(); save(); apply();
+  });
+  q.addEventListener('input',apply);
+
+  /* ---------- 訪問記録：この端末に自動保存 ---------- */
+  var KEY='batting-index-log-v1';
+  function fields(c){return c.querySelectorAll('.fields input');}
+  function read(c){
+    var st=c.querySelector('.stars input:checked'), ns=fields(c);
+    return {w:c.querySelector('.went').checked?1:0,
+            r:st?+st.className.replace('sv',''):0,
+            p:ns[0].value,b:ns[1].value,c:c.querySelector('textarea').value};
+  }
+  /* 掲載値そのままの料金・球数は「書き込み」とみなさない */
+  function dirty(c){
+    var d=read(c);
+    return !!(d.w||d.r||d.c||d.p!==c._d0[0]||d.b!==c._d0[1]);
+  }
+  function write(c,d){
+    c.querySelector('.went').checked=!!d.w;
+    [].forEach.call(c.querySelectorAll('.stars input'),function(i){i.checked=false;});
+    if(d.r){var st=c.querySelector('.sv'+d.r); if(st)st.checked=true;}
+    var ns=fields(c);
+    ns[0].value=(d.p===undefined?c._d0[0]:d.p);
+    ns[1].value=(d.b===undefined?c._d0[1]:d.b);
+    c.querySelector('textarea').value=d.c||'';
+    c.classList.toggle('noted',dirty(c));
+  }
+  function save(){
+    var o={};
+    rows.forEach(function(c){
+      c.classList.toggle('noted',dirty(c));
+      if(dirty(c))o[key(c)]=read(c);
+    });
+    try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}
+  }
+  function load(){
+    var raw=null;
+    try{raw=localStorage.getItem(KEY);}catch(e){return;}
+    if(!raw)return;
+    var o; try{o=JSON.parse(raw);}catch(e){return;}
+    rows.forEach(function(c){var d=o[key(c)]; if(d)write(c,d);});
+  }
+  document.addEventListener('input',function(e){
+    if(e.target.closest&&e.target.closest('.panel'))save();
+  });
+
+  /* 星は押し直しで取り消せる */
+  var wasOn=false;
+  function starLabel(e){
+    return e.target.closest?e.target.closest('.stars label'):null;
+  }
+  document.addEventListener('pointerdown',function(e){
+    var l=starLabel(e);
+    var i=l&&document.getElementById(l.htmlFor);
+    wasOn=!!(i&&i.checked);
+  },true);
+  document.addEventListener('click',function(e){
+    var l=starLabel(e);
+    if(!l||!wasOn)return;
+    wasOn=false;
+    var i=document.getElementById(l.htmlFor);
+    if(!i)return;
+    /* ラベルのクリックはこのあとブラウザが input を再度クリックし直すので、
+       それが終わったあとに解除する */
+    setTimeout(function(){i.checked=false; save(); apply();},0);
+  });
+
   function stat(){
     var n=rows.filter(function(c){return c.querySelector('.went').checked;}).length;
     document.getElementById('s-went').innerHTML=n+'<i>軒</i>';
   }
-  document.addEventListener('change',stat); stat();
-  /* --- 検索 --- */
-  var q=document.getElementById('q'), empty=document.getElementById('empty');
-  function search(){
-    var t=q.value.trim().toLowerCase(), n=0;
-    rows.forEach(function(c){
-      var hit=!t||c.dataset.q.toLowerCase().indexOf(t)>=0;
-      c.classList.toggle('hide',!hit); if(hit)n++;
-    });
-    empty.classList.toggle('on',n===0);
-  }
-  q.addEventListener('input',search);
 
-  /* --- 現在地から近い順 --- */
-  var near=document.getElementById('near'), reset=document.getElementById('reset');
+  /* ---------- 現在地から近い順 ---------- */
   function km(a,b,c,d){
     var R=6371,p=Math.PI/180,x=(c-a)*p,y=(d-b)*p;
     var h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)*Math.sin(y/2);
     return 2*R*Math.asin(Math.sqrt(h));
   }
+  function clearGeo(){
+    rows.forEach(function(c){c.style.removeProperty('--o3');});
+    document.body.classList.remove('geo');
+    near.classList.remove('on');
+  }
   near.onclick=function(){
+    if(document.body.classList.contains('geo')){clearGeo(); apply(); return;}
     if(!navigator.geolocation){alert('この環境では現在地を取得できません');return;}
-    near.textContent='取得中…';
+    near.textContent='取得中…'; near.disabled=true;
     navigator.geolocation.getCurrentPosition(function(pos){
       var la=pos.coords.latitude, ln=pos.coords.longitude;
       rows.map(function(c){
         return {c:c,d:km(la,ln,+c.dataset.lat,+c.dataset.lng)};
       }).sort(function(a,b){return a.d-b.d;}).forEach(function(o,i){
-        o.c.style.order=i;
+        /* inline の order ではなく変数で渡し、並び順ボタンと衝突させない */
+        o.c.style.setProperty('--o3',i);
         o.c.querySelector('.dist').textContent=(o.d<10?o.d.toFixed(1):Math.round(o.d))+'km';
       });
       document.body.classList.add('geo');
-      near.textContent='現在地から近い順'; near.classList.add('on'); reset.hidden=false;
+      near.textContent='現在地順を解除'; near.classList.add('on'); near.disabled=false;
+      apply();
     },function(){
-      near.textContent='現在地から近い順';
+      near.textContent='現在地から近い順'; near.disabled=false;
       alert('現在地を取得できませんでした。位置情報の許可を確認してください。');
     },{enableHighAccuracy:false,timeout:10000,maximumAge:600000});
   };
+
   reset.onclick=function(){
-    rows.forEach(function(c){c.style.order='';});
-    document.body.classList.remove('geo');
-    near.classList.remove('on'); reset.hidden=true;
+    q.value='';
+    ['pf','wt'].forEach(function(nm){
+      [].forEach.call(document.querySelectorAll('input[name="'+nm+'"]'),function(i){
+        i.checked=/-all$/.test(i.id);
+      });
+    });
+    document.getElementById('v-all').checked=true;
+    clearGeo();
+    near.textContent='現在地から近い順';
+    apply();
   };
 
+  /* スマホ：絞り込みバーの開閉 */
+  var fold=document.getElementById('fold');
+  fold.onclick=function(){
+    var on=document.body.classList.toggle('f-open');
+    fold.classList.toggle('on',on);
+    fold.setAttribute('aria-expanded',on?'true':'false');
+  };
+
+  /* ---------- 書き出し／読み込み ---------- */
   document.getElementById('btn-export').onclick=function(){
-    var out=rows.filter(function(c){return c.querySelector('.went').checked;}).map(function(c){
-      var st=c.querySelector('.stars input:checked'), ns=c.querySelectorAll('.fields input');
-      return {n:key(c),rating:st?+st.className.replace('sv',''):0,
-              price:ns[0].value,balls:ns[1].value,comment:c.querySelector('textarea').value};
+    var out=rows.filter(dirty).map(function(c){
+      var d=read(c);
+      return {n:key(c),rating:d.r,price:d.p,balls:d.b,comment:d.c,visited:!!d.w};
     });
+    if(!out.length){alert('書き出せる記録がまだありません');return;}
+    var url=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));
     var a=document.createElement('a');
-    a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));
-    a.download='batting-log.json'; a.click();
+    a.href=url; a.download='batting-log.json'; a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
   };
   document.getElementById('btn-import').onclick=function(){document.getElementById('file').click();};
   document.getElementById('file').onchange=function(ev){
-    var f=ev.target.files[0]; if(!f) return; var r=new FileReader();
-    r.onload=function(){try{
-      JSON.parse(r.result).forEach(function(s){
-        var c=rows.filter(function(x){return key(x)===s.n;})[0]; if(!c) return;
-        c.querySelector('.went').checked=true;
-        if(s.rating){var st=c.querySelector('.sv'+s.rating); if(st) st.checked=true;}
-        var ns=c.querySelectorAll('.fields input');
-        if(s.price) ns[0].value=s.price; if(s.balls) ns[1].value=s.balls;
-        c.querySelector('textarea').value=s.comment||'';
-      }); stat();
-    }catch(err){alert('ファイルを読み込めませんでした');}};
+    var f=ev.target.files[0]; if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var data=JSON.parse(r.result);
+        if(!Array.isArray(data))throw new Error('形式が違います');
+        var n=0;
+        data.forEach(function(s){
+          var c=rows.filter(function(x){return key(x)===s.n;})[0];
+          if(!c)return;
+          write(c,{w:(s.visited===false?0:1),r:s.rating||0,
+                   p:s.price||'',b:s.balls||'',c:s.comment||''});
+          n++;
+        });
+        stat(); save(); apply();
+        alert(n+'件の記録を読み込みました'+(n<data.length?'（'+(data.length-n)+'件は該当する店が見つかりませんでした）':''));
+      }catch(err){alert('ファイルを読み込めませんでした');}
+    };
     r.readAsText(f); ev.target.value='';
   };
+
+  load(); stat(); apply();
 })();
 </script>
 </body>
