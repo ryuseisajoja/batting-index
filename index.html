@@ -267,7 +267,7 @@
     color:var(--sub);margin-left:4px;font-weight:400;vertical-align:.08em}
   .grp label.zero{opacity:.32}
   /* --- 単価の上限 --- */
-  #cap{border:1px solid var(--rule);background:var(--panel);color:var(--ink);
+  #cap,#spd{border:1px solid var(--rule);background:var(--panel);color:var(--ink);
     font-size:14px;padding:5px 8px;margin-left:10px;font-family:inherit}
   .capnote{font-size:11px;color:var(--sub);margin-left:10px}
   /* --- 一括操作 --- */
@@ -288,11 +288,33 @@
   .lrow .lf{font-family:var(--mono);font-size:12px;color:var(--sub);white-space:nowrap}
   .ltot{padding:10px 0;font-size:12px;font-family:var(--mono);color:var(--sub)}
   /* --- 要確認の消し込み --- */
-  .vfy{border:1px solid var(--red);background:none;color:var(--red);font-size:11px;
+  .vfy{border:1px solid var(--rule);background:none;color:var(--sub);font-size:11px;
     font-weight:700;padding:2px 8px;cursor:pointer;font-family:inherit;margin-left:9px}
-  .vfy:hover{background:var(--red);color:#fff}
+  .vfy:hover{border-color:var(--ink);color:var(--ink)}
+  .row.chk .vfy{border-color:var(--red);color:var(--red)}
+  .row.chk .vfy:hover{background:var(--red);color:#fff}
   .vdate{font-family:var(--mono);font-size:11px;color:var(--sub);margin-left:9px}
   .row.done .sig{border-color:var(--rule);color:var(--sub)}
+  /* --- データの埋まり具合 --- */
+  #covn,#logn{font-family:var(--mono);font-size:12px;color:var(--sub);font-weight:400}
+  #covbody{padding-bottom:18px}
+  .cv{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:0 12px;
+    padding:7px 0;font-size:12.5px}
+  .cv>span:first-child{color:var(--sub);font-weight:700}
+  .cvbar{height:7px;background:var(--rule2);position:relative}
+  .cvbar i{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+  .cvn{font-family:var(--mono);font-size:11.5px;color:var(--sub);white-space:nowrap}
+  .cvnote{font-size:12px;line-height:1.9;color:var(--sub);padding-top:10px;
+    border-top:1px solid var(--rule2);margin-top:8px}
+  .cvnote b{color:var(--ink)}
+  /* --- 記録パネルの追記欄 --- */
+  .vfyrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    border-top:1px solid var(--rule2);padding-top:10px;margin-top:2px}
+  .vfyrow .lbl{font-size:12px;font-weight:700;color:var(--sub);
+    display:flex;align-items:center;gap:7px}
+  .vfyrow input{width:78px;border:0;border-bottom:1px solid var(--rule);background:none;
+    font-size:14px;color:var(--ink);font-family:var(--mono);padding:2px 0}
+  .vfyrow input:focus{outline:none;border-bottom-color:var(--ink)}
   .fold{display:none}
   @media(max-width:719px){
     .fold{display:inline-block;border:1px solid var(--ink);background:var(--panel);
@@ -328,6 +350,7 @@
 <input type="radio" name="view" id="v-went" class="ctl">
 <input type="radio" name="view" id="v-yet" class="ctl">
 <input type="radio" name="view" id="v-check" class="ctl">
+<input type="radio" name="view" id="v-stale" class="ctl">
 <input type="radio" name="view" id="v-noted" class="ctl">
 <input type="checkbox" name="pf" id="pf-all" class="ctl" checked>
 <input type="checkbox" name="pf" id="pf-osaka" class="ctl">
@@ -376,8 +399,9 @@
 <div class="bar"><div class="bwrap">
   <div class="grp want"><b>重視する</b><label for="wt-all">こだわらない</label><label for="wt-cheap">安さ</label><label for="wt-hard">硬式</label><label for="wt-free">打ち放題</label><label for="wt-indoor">屋内・全天候</label><label for="wt-fast">速い球</label><label for="wt-video">映像マシン</label><label for="wt-combo">他の遊びも</label><label for="wt-station">駅から近い</label></div>
   <div class="grp"><b>表示</b>
-    <label for="v-all">すべて</label><label for="v-went">訪問済</label><label for="v-yet">未訪問</label><label for="v-noted">記録あり</label><label for="v-check">要確認</label></div>
+    <label for="v-all">すべて</label><label for="v-went">訪問済</label><label for="v-yet">未訪問</label><label for="v-noted">記録あり</label><label for="v-check">要確認</label><label for="v-stale">未確認</label></div>
   <div class="grp"><b>単価</b><select id="cap" aria-label="1球あたりの単価の上限"><option value="">上限なし</option><option value="8">8円/球 以下</option><option value="10">10円/球 以下</option><option value="12">12円/球 以下</option><option value="15">15円/球 以下</option></select><span class="capnote">時間制・貸切の店は単価で比べられないため、上限を選ぶと外れます</span></div>
+  <div class="grp"><b>球速</b><select id="spd" aria-label="最高球速の下限"><option value="">下限なし</option><option value="120">120km/h 以上</option><option value="130">130km/h 以上</option><option value="140">140km/h 以上</option><option value="150">150km/h 以上</option></select><span class="capnote">球速がわかっているのは<b id="spdn">55</b>軒。行った店で記録すると、ここに反映されます</span></div>
   <div class="grp"><b>並び順</b>
     <label for="s-pb">1球単価</label><label for="s-price">1ゲーム額</label><label for="s-rate">自分の評価</label></div>
   <div class="grp"><b>地域</b><label for="pf-all">すべて</label><label for="pf-osaka">大阪</label><label for="pf-kyoto">京都</label><label for="pf-hyogo">兵庫</label><label for="pf-nara">奈良</label><label for="pf-shiga">滋賀</label><label for="pf-wakayama">和歌山</label><label for="pf-aichi">愛知</label><label for="pf-gifu">岐阜</label><label for="pf-mie">三重</label><label for="pf-shizuoka">静岡</label><label for="pf-nagano">長野</label><label for="pf-yamanashi">山梨</label><label for="pf-fukui">福井</label><label for="pf-ishikawa">石川</label><label for="pf-toyama">富山</label><label for="pf-niigata">新潟</label></div>
@@ -393,6 +417,7 @@
 <noscript><p class="hit">絞り込み・検索・訪問記録には JavaScript が必要です。全229軒の一覧はそのままご覧いただけます。</p></noscript>
 <main>
   <div class="hit"><span><b id="hit">229</b> 軒</span><span class="cond" id="cond"></span><span class="bulk"><button id="mark-all" type="button">表示中をまとめて訪問済に</button><button id="unmark-all" type="button">表示中の記録を消す</button></span></div>
+  <details class="cov" id="cov"><summary>データの埋まり具合<span id="covn"></span></summary><div id="covbody"></div></details>
   <details class="log" id="log"><summary>つけた記録をまとめて見る<span id="logn"></span></summary><div id="logbody"></div></details>
   <p class="note">
     上の「重視する」「地域」は<b>複数えらべます</b>（同じ枠内はどれかに当てはまる店、枠をまたぐと両方を満たす店）。検索欄は<b>スペース区切りのAND検索</b>で、ひらがな・半角カナ・全角英数もそのまま拾います。店名の下の<b>「地図で見る」</b>からGoogleマップが開きます。<br>
@@ -3857,8 +3882,10 @@
   var q=document.getElementById('q'), empty=document.getElementById('empty');
   var hit=document.getElementById('hit'), cond=document.getElementById('cond');
   var reset=document.getElementById('reset'), near=document.getElementById('near');
-  var cap=document.getElementById('cap');
+  var cap=document.getElementById('cap'), spd=document.getElementById('spd');
   var key=function(c){return c.querySelector('.name').textContent;};
+  /* 情報がまだ新しいとみなす日数。これを過ぎた店は「未確認」に出る。 */
+  var FRESH_DAYS=180;
 
   /* ---------- 表記ゆれの吸収 ----------
      NFKCで全角英数→半角・半角カナ→全角カナ、ひらがな→カタカナ、
@@ -3876,7 +3903,8 @@
     nagano:'長野',yamanashi:'山梨',fukui:'福井',ishikawa:'石川',toyama:'富山',niigata:'新潟'};
   var WTNAME={cheap:'安さ',hard:'硬式',free:'打ち放題',indoor:'屋内・全天候',
     fast:'速い球',video:'映像マシン',combo:'他の遊びも',station:'駅から近い'};
-  var VIEWNAME={'v-went':'訪問済のみ','v-yet':'未訪問のみ','v-noted':'記録ありのみ','v-check':'要確認のみ'};
+  var VIEWNAME={'v-went':'訪問済のみ','v-yet':'未訪問のみ','v-noted':'記録ありのみ',
+    'v-check':'要確認のみ','v-stale':'未確認のみ'};
 
   rows.forEach(function(c){
     var extra=[c.querySelector('.name').textContent];
@@ -3893,6 +3921,9 @@
     c._u=u?parseFloat(u.textContent):null;
     /* 料金改定・閉店の可能性がある店 */
     c._check=/要確認/.test(c.dataset.q);
+    /* 掲載されている最高球速。229軒中55軒しか入っていない。 */
+    var sb=c.querySelector('.spd b');
+    c._sp=sb?parseInt(sb.textContent,10):null;
   });
 
   function picked(name){
@@ -3908,7 +3939,19 @@
     return {terms:norm(q.value).split(' ').filter(Boolean),
             pfs:picked('pf'), wts:picked('wt'),
             view:(document.querySelector('input[name="view"]:checked')||{id:'v-all'}).id,
-            cap:cap.value?parseFloat(cap.value):null};
+            cap:cap.value?parseFloat(cap.value):null,
+            spd:spd.value?parseInt(spd.value,10):null};
+  }
+  /* 掲載値と、自分で記録した実測値。記録があればそちらを優先する。 */
+  function speed(c){
+    var v=parseInt((read(c).s||''),10);
+    return isNaN(v)?c._sp:v;
+  }
+  /* 確認日が無い、または古い店 */
+  function stale(c){
+    var d=verified[key(c)];
+    if(!d)return true;
+    return (Date.now()-new Date(d).getTime())/864e5>FRESH_DAYS;
   }
   function match(c,s,skip){
     var i;
@@ -3922,11 +3965,16 @@
       if(!any) return false;
     }
     if(skip!=='cap'&&s.cap!==null&&!(c._u!==null&&c._u<=s.cap)) return false;
+    if(skip!=='spd'&&s.spd!==null){
+      var sp=speed(c);
+      if(sp===null||sp<s.spd) return false;
+    }
     if(skip!=='view'&&s.view!=='v-all'){
       if(s.view==='v-went'&&!c.querySelector('.went').checked) return false;
       if(s.view==='v-yet'&&c.querySelector('.went').checked) return false;
       if(s.view==='v-noted'&&!dirty(c)) return false;
       if(s.view==='v-check'&&!(c._check&&!verified[key(c)])) return false;
+      if(s.view==='v-stale'&&!stale(c)) return false;
     }
     return true;
   }
@@ -3945,6 +3993,7 @@
     s.pfs.forEach(function(k){chips.push(PFNAME[k]||k);});
     s.wts.forEach(function(k){chips.push(WTNAME[k]||k);});
     if(s.cap!==null)chips.push(s.cap+'円/球 以下');
+    if(s.spd!==null)chips.push(s.spd+'km/h 以上');
     if(VIEWNAME[s.view])chips.push(VIEWNAME[s.view]);
     if(s.terms.length)chips.push('「'+q.value.trim()+'」');
     if(document.body.classList.contains('geo'))chips.push('現在地から近い順');
@@ -3958,6 +4007,7 @@
     document.getElementById('unmark-all').disabled=vis.filter(dirty).length===0;
     badges(s);
     renderLog();
+    renderCoverage();
   }
 
   /* ---------- チップの件数バッジ ---------- */
@@ -3983,6 +4033,7 @@
     setBadge('v-yet', baseVw.filter(function(c){return !c.querySelector('.went').checked;}).length);
     setBadge('v-noted',baseVw.filter(dirty).length);
     setBadge('v-check',baseVw.filter(function(c){return c._check&&!verified[key(c)];}).length);
+    setBadge('v-stale',baseVw.filter(stale).length);
   }
 
   /* 「すべて」「こだわらない」はグループの解除ボタンとして働かせる */
@@ -4006,6 +4057,7 @@
   });
   q.addEventListener('input',apply);
   cap.addEventListener('change',apply);
+  spd.addEventListener('change',apply);
 
   /* ---------- 訪問記録：この端末に自動保存 ---------- */
   var KEY='batting-index-log-v1', VKEY='batting-index-verified-v1';
@@ -4017,12 +4069,13 @@
     var st=c.querySelector('.stars input:checked'), ns=fields(c);
     return {w:c.querySelector('.went').checked?1:0,
             r:st?+st.className.replace('sv',''):0,
-            p:ns[0].value,b:ns[1].value,c:c.querySelector('textarea').value};
+            p:ns[0].value,b:ns[1].value,s:c._spInput?c._spInput.value:'',
+            c:c.querySelector('textarea').value};
   }
   /* 掲載値そのままの料金・球数は「書き込み」とみなさない */
   function dirty(c){
     var d=read(c);
-    return !!(d.w||d.r||d.c||d.p!==c._d0[0]||d.b!==c._d0[1]);
+    return !!(d.w||d.r||d.c||d.s||d.p!==c._d0[0]||d.b!==c._d0[1]);
   }
   function write(c,d){
     c.querySelector('.went').checked=!!d.w;
@@ -4031,11 +4084,12 @@
     var ns=fields(c);
     ns[0].value=(d.p===undefined?c._d0[0]:d.p);
     ns[1].value=(d.b===undefined?c._d0[1]:d.b);
+    if(c._spInput)c._spInput.value=d.s||'';
     c.querySelector('textarea').value=d.c||'';
     c.classList.toggle('noted',dirty(c));
   }
   function clear(c){
-    write(c,{w:0,r:0,p:c._d0[0],b:c._d0[1],c:''});
+    write(c,{w:0,r:0,p:c._d0[0],b:c._d0[1],s:'',c:''});
   }
   function save(){
     var o={};
@@ -4118,6 +4172,7 @@
       if(money)f.push(money+'円');
       if(balls)f.push(balls+'球');
       if(money&&balls)f.push((money/balls).toFixed(1)+'円/球');
+      if(d.s)f.push(d.s+'km/h');
       return '<div class="lrow"><span class="ln">'+esc(key(c))+
         (d.r?' <span style="letter-spacing:-1px">'+new Array(d.r+1).join('★')+'</span>':'')+
         '</span><span class="lf">'+f.join(' ・ ')+'</span>'+
@@ -4127,6 +4182,35 @@
     if(cnt)tot.push('記録した料金の合計 '+sum.toLocaleString()+'円（'+cnt+'軒）');
     if(rn)tot.push('平均評価 '+(rt/rn).toFixed(1)+'★');
     logbody.innerHTML=html+(tot.length?'<p class="ltot">'+tot.join('　／　')+'</p>':'');
+  }
+
+  /* ---------- データの埋まり具合 ---------- */
+  var cov=document.getElementById('cov'), covbody=document.getElementById('covbody'),
+      covn=document.getElementById('covn');
+  function renderCoverage(){
+    var n=rows.length;
+    var withUnit=rows.filter(function(c){return c._u!==null;}).length;
+    var withSpd=rows.filter(function(c){return speed(c)!==null;}).length;
+    var vfd=rows.filter(function(c){return !stale(c);}).length;
+    var mine=rows.filter(dirty).length;
+    document.getElementById('spdn').textContent=withSpd;
+    covn.textContent='　球速 '+withSpd+'/'+n+'　確認済 '+vfd+'/'+n;
+    var bars=[
+      ['1球単価',withUnit,'時間制・貸切の'+(n-withUnit)+'軒は単価を出せません'],
+      ['最高球速',withSpd,'掲載値があるのは'+rows.filter(function(c){return c._sp!==null;}).length+'軒。残りは行った人の記録待ちです'],
+      ['情報の確認',vfd,'確認から'+FRESH_DAYS+'日を過ぎた店は「未確認」に戻ります'],
+      ['自分の記録',mine,'評価・料金・球速・所感のいずれかを書いた店']
+    ];
+    covbody.innerHTML=bars.map(function(b){
+      var pct=Math.round(b[1]/n*100);
+      return '<div class="cv"><span>'+b[0]+'</span>'+
+        '<span class="cvbar"><i style="width:'+pct+'%"></i></span>'+
+        '<span class="cvn">'+b[1]+' / '+n+'　'+pct+'%</span></div>'+
+        '<div class="cvn" style="padding:0 0 6px 108px">'+b[2]+'</div>';
+    }).join('')+
+    '<p class="cvnote">料金は<b>2026年8月時点</b>の公開情報にもとづく参考値です。'+
+    '行った店で実際の料金・球速を記録し、<b>「記録を書き出す」</b>でJSONを保存しておくと、'+
+    'そのまま台帳本体のデータとして取り込めます。</p>';
   }
 
   /* ---------- 「要確認」の消し込み ---------- */
@@ -4144,15 +4228,33 @@
                     '<button class="vfy" data-undo="1" type="button">取り消す</button>';
       c.classList.add('done');
     }else{
-      box.innerHTML='<button class="vfy" type="button">情報を確認した</button>';
+      box.innerHTML='<button class="vfy" type="button">'+
+                    (c._check?'情報を確認した':'確認した')+'</button>';
       c.classList.remove('done');
     }
   }
-  rows.filter(function(c){return c._check;}).forEach(function(c){
+  /* 全229軒に「確認した」と球速の記録欄を用意する。
+     HTMLに直接書くとファイルが太るので、ここで組み立てる。 */
+  rows.forEach(function(c){
+    if(c._check)c.classList.add('chk');
     var box=document.createElement('span');
     box.className='vbox';
     c.querySelector('.city').appendChild(box);
     paintVerified(c);
+
+    var row=document.createElement('div');
+    row.className='vfyrow';
+    var lbl=document.createElement('span');
+    lbl.className='lbl';
+    lbl.textContent='最高球速';
+    var inp=document.createElement('input');
+    inp.type='number'; inp.min='40'; inp.max='200';
+    inp.placeholder=(c._sp!==null?c._sp+'（掲載値）':'km/h');
+    inp.setAttribute('aria-label',key(c)+' の最高球速');
+    lbl.appendChild(inp);
+    row.appendChild(lbl);
+    c.querySelector('.panel').appendChild(row);
+    c._spInput=inp;
   });
   document.addEventListener('click',function(e){
     var b=e.target.closest?e.target.closest('.vfy'):null;
@@ -4197,7 +4299,7 @@
   };
 
   reset.onclick=function(){
-    q.value=''; cap.value='';
+    q.value=''; cap.value=''; spd.value='';
     ['pf','wt'].forEach(function(nm){
       [].forEach.call(document.querySelectorAll('input[name="'+nm+'"]'),function(i){
         i.checked=/-all$/.test(i.id);
@@ -4220,7 +4322,7 @@
   document.getElementById('btn-export').onclick=function(){
     var out=rows.filter(dirty).map(function(c){
       var d=read(c);
-      return {n:key(c),rating:d.r,price:d.p,balls:d.b,comment:d.c,visited:!!d.w};
+      return {n:key(c),rating:d.r,price:d.p,balls:d.b,speed:d.s,comment:d.c,visited:!!d.w};
     });
     if(!out.length){alert('書き出せる記録がまだありません');return;}
     var payload={savedAt:today(),records:out,verified:verified};
@@ -4244,7 +4346,7 @@
           var c=rows.filter(function(x){return key(x)===s.n;})[0];
           if(!c)return;
           write(c,{w:(s.visited===false?0:1),r:s.rating||0,
-                   p:s.price||'',b:s.balls||'',c:s.comment||''});
+                   p:s.price||'',b:s.balls||'',s:s.speed||'',c:s.comment||''});
           n++;
         });
         if(data&&data.verified){
