@@ -139,6 +139,10 @@
     border:1px solid var(--rule);padding:5px 13px;user-select:none;white-space:nowrap}
   .go:hover{border-color:var(--ink);color:var(--ink)}
   .go .b{display:none}
+  .more{border:1px solid var(--rule);background:none;color:var(--sub);font-size:11.5px;
+    font-weight:700;padding:4px 10px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .more:hover{border-color:var(--ink);color:var(--ink)}
+  .more.on{border-color:var(--ink);color:var(--ink)}
   .stars{display:inline-flex;direction:rtl}
   .stars input{position:absolute;opacity:0;width:0;height:0}
   .stars label{color:var(--rule);font-size:19px;line-height:1;cursor:pointer;padding:0 1px}
@@ -158,7 +162,7 @@
   .row:has(.went:checked) .go{background:var(--ink);border-color:var(--ink);color:#fff}
   .row:has(.went:checked) .go .a{display:none}
   .row:has(.went:checked) .go .b{display:inline}
-  .row:has(.went:checked) .panel,.row.noted .panel{display:flex}
+  .row:has(.went:checked) .panel,.row.noted .panel,.row.open .panel{display:flex}
 
   #s-pb:checked ~ main .row{order:var(--o1)}
   #s-price:checked ~ main .row{order:var(--o2)}
@@ -958,14 +962,14 @@
 </div>
 <div class="fig"><b class="yen">300</b><span class="u">円</span><span class="balls">30球</span><span class="unit">10.0<i>円/球</i></span></div>
 </article>
-<article class="row pf-kyoto fl-combo" style="--o1:103;--o2:103" data-lat="34.9265" data-lng="135.6953" data-q="京都 長岡京市 NBC長岡京バッティングセンター カフェ併設 ストラックアウト">
+<article class="row pf-kyoto fl-combo" style="--o1:103;--o2:103" data-lat="34.9265" data-lng="135.6953" data-q="京都 長岡京市 NBC長岡京バッティングセンター カフェ併設 ストラックアウト 75〜130km">
 <input type="checkbox" class="went" id="w35">
 <div class="stamp"><span class="sig">NB</span></div>
 <div class="body">
 <div class="lead"><span class="pref">京都</span><h2 class="name">NBC長岡京バッティングセンター</h2><span class="mark">済</span></div>
 <p class="city">長岡京市<span class="dist"></span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=%E4%BA%AC%E9%83%BD%E9%95%B7%E5%B2%A1%E4%BA%AC%E5%B8%82%20NBC%E9%95%B7%E5%B2%A1%E4%BA%AC%E3%83%90%E3%83%83%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC" target="_blank" rel="noopener">地図で見る</a></p>
-<div class="tags"><span class="t">カフェ併設</span><span class="t">ストラックアウト</span></div>
-<div class="spec"><div class="spd none"><span class="track"></span></div></div>
+<div class="tags"><span class="t">75〜130km</span><span class="t">カフェ併設</span><span class="t">ストラックアウト</span></div>
+<div class="spec"><div class="spd"><span class="track"></span><span class="fill" style="left:19.2%;right:38.5%"></span><b style="left:61.5%">130</b></div></div>
 <div class="act"><label class="go" for="w35"><span class="a">記録する</span><span class="b">記録済み</span></label><span class="stars"><input type="radio" name="r35" id="r35-5" class="sv5"><label for="r35-5">★</label><input type="radio" name="r35" id="r35-4" class="sv4"><label for="r35-4">★</label><input type="radio" name="r35" id="r35-3" class="sv3"><label for="r35-3">★</label><input type="radio" name="r35" id="r35-2" class="sv2"><label for="r35-2">★</label><input type="radio" name="r35" id="r35-1" class="sv1"><label for="r35-1">★</label></span></div>
 <div class="panel">
 <div class="fields"><label>料金<input type="number" value="300" placeholder="円"></label><label>球数<input type="number" value="23" placeholder="球"></label></div>
@@ -1588,14 +1592,14 @@
 </div>
 <div class="fig"><b class="yen">300</b><span class="u">円</span><span class="balls">30球</span><span class="unit">10.0<i>円/球</i></span></div>
 </article>
-<article class="row pf-nara fl-indoor" style="--o1:125;--o2:117" data-lat="34.6496" data-lng="135.7827" data-q="奈良 大和郡山市 スーパードーム郡山 小泉町 ドーム型">
+<article class="row pf-nara fl-indoor" style="--o1:125;--o2:117" data-lat="34.6496" data-lng="135.7827" data-q="奈良 大和郡山市 スーパードーム郡山 小泉町 ドーム型 60〜130km">
 <input type="checkbox" class="went" id="w77">
 <div class="stamp"><span class="sig">スー</span></div>
 <div class="body">
 <div class="lead"><span class="pref">奈良</span><h2 class="name">スーパードーム郡山</h2><span class="mark">済</span></div>
 <p class="city">大和郡山市<span class="dist"></span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=%E5%A5%88%E8%89%AF%E5%A4%A7%E5%92%8C%E9%83%A1%E5%B1%B1%E5%B8%82%20%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%89%E3%83%BC%E3%83%A0%E9%83%A1%E5%B1%B1" target="_blank" rel="noopener">地図で見る</a></p>
-<div class="tags"><span class="t">小泉町</span><span class="t">ドーム型</span></div>
-<div class="spec"><div class="spd none"><span class="track"></span></div></div>
+<div class="tags"><span class="t">60〜130km</span><span class="t">小泉町</span><span class="t">ドーム型</span></div>
+<div class="spec"><div class="spd"><span class="track"></span><span class="fill" style="left:7.7%;right:38.5%"></span><b style="left:61.5%">130</b></div></div>
 <div class="act"><label class="go" for="w77"><span class="a">記録する</span><span class="b">記録済み</span></label><span class="stars"><input type="radio" name="r77" id="r77-5" class="sv5"><label for="r77-5">★</label><input type="radio" name="r77" id="r77-4" class="sv4"><label for="r77-4">★</label><input type="radio" name="r77" id="r77-3" class="sv3"><label for="r77-3">★</label><input type="radio" name="r77" id="r77-2" class="sv2"><label for="r77-2">★</label><input type="radio" name="r77" id="r77-1" class="sv1"><label for="r77-1">★</label></span></div>
 <div class="panel">
 <div class="fields"><label>料金<input type="number" value="300" placeholder="円"></label><label>球数<input type="number" value="20" placeholder="球"></label></div>
@@ -4107,7 +4111,7 @@
     rows.forEach(function(c){var d=o[key(c)]; if(d)write(c,d);});
   }
   document.addEventListener('input',function(e){
-    if(e.target.closest&&e.target.closest('.panel')){save(); renderLog();}
+    if(e.target.closest&&e.target.closest('.panel')){save(); renderLog(); renderCoverage();}
   });
 
   /* 星は押し直しで取り消せる */
@@ -4255,6 +4259,24 @@
     row.appendChild(lbl);
     c.querySelector('.panel').appendChild(row);
     c._spInput=inp;
+
+    /* 行ってない店でも、知っている情報を書けるようにしておく。
+       229軒すべてを訪問できるわけではないので、訪問記録とは別の入口が要る。 */
+    var more=document.createElement('button');
+    more.type='button'; more.className='more';
+    more.textContent='情報を書く';
+    more.setAttribute('aria-expanded','false');
+    c.querySelector('.act').appendChild(more);
+  });
+  document.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('.more'):null;
+    if(!b)return;
+    var c=b.closest('.row');
+    var on=c.classList.toggle('open');
+    b.classList.toggle('on',on);
+    b.textContent=on?'閉じる':'情報を書く';
+    b.setAttribute('aria-expanded',on?'true':'false');
+    if(on)c._spInput.focus();
   });
   document.addEventListener('click',function(e){
     var b=e.target.closest?e.target.closest('.vfy'):null;
